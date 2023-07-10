@@ -12,17 +12,19 @@ interface Starship{
 export function Starships() {
 const [starships, setStarships]= useState<Starship[]>([]);
 const [selectedStarship, setSelectedStarship] = useState<Starship>();
+const [page, setPage] = useState(1);
+
 
 const callAPI = async()=>{
-const res = await axios.get('https://swapi.dev/api/starships/')
+const res = await axios.get(`https://swapi.dev/api/starships/?page=${page}`)
 console.log('llamada API', res.data)
 return res.data
-}
+};
 
 const getStarships = async()=>{
     const data = await callAPI()
-    setStarships(data.results as Starship[])
-}
+    setStarships((prevStarships) => [...prevStarships, ...(data.results as Starship[])]);
+};
 
 const handleStarshipClick = (starship: Starship)=>{
     if(selectedStarship && selectedStarship.name === starship.name){
@@ -34,8 +36,21 @@ const handleStarshipClick = (starship: Starship)=>{
 
 useEffect(()=>{
     getStarships()
-}, [])
+}, [page]);
 console.log('starships', starships)
+
+//=========================== scroll ==============================
+useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+      if (scrollTop + clientHeight >= scrollHeight - 5) {
+        setPage((prevPage) => prevPage + 1);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
     return (
         <>

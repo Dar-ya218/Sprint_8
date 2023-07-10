@@ -26,14 +26,15 @@ import { useEffect, useState } from "react"
   const imageID = selectedStarship.url.slice(32,-1)
   setImage(`https://starwars-visualguide.com/assets/img/starships/${imageID}.jpg`)
   }, [selectedStarship.url])
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = `https://starwars-visualguide.com/assets/img/big-placeholder.jpg`;
+  };
 
   return(
     <div className="starshipInfoCardDiv">
       <div className="starshipImageDiv">
         <img className="starshipImage" src={image} alt="image" 
-        onError={(e) => {
-          e.currentTarget.src = `https://starwars-visualguide.com/assets/img/big-placeholder.jpg`;
-        }}/>
+        onError={handleImageError}/>
       </div>
       <div>
         <ul>
