@@ -30,7 +30,10 @@ import { useEffect, useState } from "react"
   return(
     <div className="starshipInfoCardDiv">
       <div className="starshipImageDiv">
-        <img className="starshipImage" src={image} alt="image" />
+        <img className="starshipImage" src={image} alt="image" 
+        onError={(e) => {
+          e.currentTarget.src = `https://starwars-visualguide.com/assets/img/big-placeholder.jpg`;
+        }}/>
       </div>
       <div>
         <ul>
