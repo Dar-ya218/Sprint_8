@@ -66,6 +66,7 @@ function Starships() {
             next ={getMoreShips}
             loader ={<div className="loadingMore">Loanding more...</div>}>
             <div className="starshipsPageDiv">
+            { starships.length === 0 && <div className='loading'>Loading...</div> }
                 {starships.map((starship, index)=>{
                     return(
                         <div key={index} className="starshipInfoDiv" onClick={()=>handleStarshipClick(starship)}>
@@ -74,7 +75,7 @@ function Starships() {
                             {selectedStarship && selectedStarship.name === starship.name && <StarshipInfoCard selectedStarship ={selectedStarship}/>}
                         </div>
                     );
-                })};
+                })}
             </div>
             </InfiniteScroll>
         </>
