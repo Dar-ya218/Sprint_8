@@ -16,7 +16,10 @@ export function Navbar() {
                 <div className="loginAndSignupDiv">
                     <button>Log In</button>
                     <button>
+                    <Link to={"/signup"}>
+
                     <FontAwesomeIcon icon={faUser} /> Sign Up
+                    </Link>
                     </button>
                 </div>
             </div>
